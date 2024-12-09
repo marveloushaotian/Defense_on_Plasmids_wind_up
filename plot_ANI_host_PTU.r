@@ -5,7 +5,7 @@ library(tidyr)
 library(readr)
 
 # Define the directory containing the CSV files
-directory <- "Plot_Data/ANI_all_host"
+directory <- "Split_by_PTU/ANI_all_host"
 
 # List all CSV files in the directory
 file_list <- list.files(directory, pattern = "*.csv", full.names = TRUE)
@@ -48,4 +48,4 @@ p <- ggplot(combined_data, aes(x = ANI, y = file_name)) +
   )
 
 # Save the plot
-ggsave("pairwise_ANI_of_host.pdf", p, width = 10, height = length(file_list) * 0.3, units = "in", dpi = 300, limitsize = FALSE)
+ggsave("Results/PTU_Group/pairwise_ANI_of_host.pdf", p, width = 10, height = length(file_list) * 0.3, units = "in", dpi = 300, limitsize = FALSE)

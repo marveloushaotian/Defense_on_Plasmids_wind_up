@@ -4,7 +4,7 @@ library(dplyr)
 library(tidyr)
 
 # Read the main table from CSV file
-master_table <- read.csv("pcn_ptu_def_length_columns.csv")
+master_table <- read.csv("Collect/pcn_ptu_def_length_columns.csv")
 
 # Data preprocessing
 pcn_data <- master_table %>%
@@ -96,7 +96,7 @@ p <- ggplot() +
   scale_y_discrete(limits = rev(levels(pcn_data$PTU_sHSBM_10)))
 
 # Save plot
-ggsave("log_PCN_and_percentage_of_plasmid_with_defense_systems.pdf", p, width = 6, height = 40, units = "in", dpi = 300, limitsize = FALSE)
+ggsave("Results/PTU_Group/log_PCN_and_percentage_of_plasmid_with_defense_systems.pdf", p, width = 6, height = 40, units = "in", dpi = 300, limitsize = FALSE)
 
 # Save processed data for plotting
 write.csv(pcn_data, "intermediate_data_for_PCN_plot.csv", row.names = FALSE)

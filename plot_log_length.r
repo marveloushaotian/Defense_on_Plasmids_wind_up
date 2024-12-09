@@ -61,4 +61,4 @@ p <- ggplot() +
   scale_y_discrete(limits = rev(levels(pcn_data$PTU_sHSBM_10)))
 
 # Save plot
-ggsave("log_plasmid_length.pdf", p, width = 6, height = 80, units = "in", dpi = 300, limitsize = FALSE)
+ggsave("Results/PTU_Group/log_plasmid_length.pdf", p, width = 6, height = 80, units = "in", dpi = 300, limitsize = FALSE)

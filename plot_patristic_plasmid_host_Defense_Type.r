@@ -74,7 +74,7 @@ if (nrow(all_data) > 0) {
           plot.title = element_text(hjust = 0.5, size = 14, face = "bold"))
   
   # 6. Save the combined plot as a vertical PNG
-  ggsave(filename = "pairwise_patristic_distance_of_plasmid_host.pdf", 
+  ggsave(filename = "Results/Defense_Type_Group/pairwise_patristic_distance_of_plasmid_host.pdf", 
        plot = p, 
        width = 8,
        height = 100,

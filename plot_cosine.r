@@ -4,7 +4,7 @@ library(dplyr)
 library(purrr)
 
 # Set input directory
-input_dir <- "Plot_Data/Consine"
+input_dir <- "Split_by_PTU/Cosine"
 
 # Get all files in the directory
 files <- list.files(input_dir, full.names = TRUE)
@@ -123,7 +123,7 @@ n_files <- length(unique(combined_data_filtered$filename))
 plot_height <- max(8, n_files * 0.3)  # At least 0.3 inches per file, minimum total height 8 inches
 
 # Save the combined plot
-output_file <- file.path("pairwise_cosine_similarities_of_defense_systems_harbored.pdf")
+output_file <- file.path("Results/PTU_Group/pairwise_cosine_similarities_of_defense_systems_harbored.pdf")
 print(paste("Saving combined plot to:", output_file))
 ggsave(output_file, plot = p, width = 10, height = plot_height, limitsize = FALSE)
 
