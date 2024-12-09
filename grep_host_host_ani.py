@@ -9,10 +9,8 @@ import numpy as np
 from collections import defaultdict
 
 def create_lookup_index(df_b):
-    """Create a lookup dictionary for faster searching."""
     lookup = defaultdict(list)
     
-    # Create an index for both Ref_file and Query_file combinations
     for idx, row in df_b.iterrows():
         key = tuple(sorted([row['Ref_file'], row['Query_file']]))
         lookup[key].append(idx)
@@ -20,38 +18,30 @@ def create_lookup_index(df_b):
     return lookup, df_b
 
 def process_single_file(input_file_a, input_dir, lookup_data, output_dir):
-    """Process a single input file with optimized lookup."""
     try:
         lookup, df_b = lookup_data
         
-        # Read input file a
         df_a = pd.read_csv(os.path.join(input_dir, input_file_a))
         
-        # Extract ASSEMBLY_ACC column
         assembly_acc_list = df_a['ASSEMBLY_ACC'].unique()
         pairs = list(combinations(sorted(assembly_acc_list), 2))
         
-        # Initialize list to store matching indices
         matching_indices = []
         
-        # Look up pairs in the index
         for pair in pairs:
             sorted_pair = tuple(sorted(pair))
             if sorted_pair in lookup:
                 matching_indices.extend(lookup[sorted_pair])
         
-        # Create result DataFrame using matched indices
         if matching_indices:
             result_df = df_b.iloc[matching_indices].copy()
             result_df.drop_duplicates(inplace=True)
             
-            # Write the result to the output directory
             output_file = os.path.join(output_dir, input_file_a)
             result_df.to_csv(output_file, index=False)
             
             return f"Successfully processed {input_file_a} with {len(result_df)} matches"
         else:
-            # Create empty file if no matches found
             pd.DataFrame(columns=df_b.columns).to_csv(
                 os.path.join(output_dir, input_file_a), 
                 index=False
@@ -62,32 +52,25 @@ def process_single_file(input_file_a, input_dir, lookup_data, output_dir):
         return f"Error processing {input_file_a}: {str(e)}"
 
 def extract_data(input_dir, input_file_b, output_dir, num_processes=None, chunk_size=None):
-    """Main function to extract data using multiple processes and optimized lookup."""
-    # Determine number of processes to use
     if num_processes is None:
         num_processes = max(1, cpu_count() - 1)
     
-    # Create output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
     
-    # Read the fixed input file b and create lookup index
     print("Reading input file B and creating lookup index...")
     df_b = pd.read_csv(input_file_b)
     lookup_data = create_lookup_index(df_b)
     
-    # Get list of CSV files to process
     csv_files = [f for f in os.listdir(input_dir) if f.endswith('.csv')]
     
     if chunk_size is None:
         chunk_size = max(1, len(csv_files) // (num_processes * 4))
     
-    # Create partial function with fixed parameters
     process_func = partial(process_single_file,
                          input_dir=input_dir,
                          lookup_data=lookup_data,
                          output_dir=output_dir)
     
-    # Process files in parallel with chunking
     print(f"Processing files using {num_processes} processes...")
     with Pool(processes=num_processes) as pool:
         results = list(tqdm(
@@ -96,7 +79,6 @@ def extract_data(input_dir, input_file_b, output_dir, num_processes=None, chunk_
             desc="Processing files"
         ))
     
-    # Print results summary
     successful = sum(1 for r in results if "Successfully" in r)
     no_matches = sum(1 for r in results if "no matches found" in r)
     errors = sum(1 for r in results if "Error" in r)
@@ -107,7 +89,6 @@ def extract_data(input_dir, input_file_b, output_dir, num_processes=None, chunk_
     print(f"Processed with no matches: {no_matches}")
     print(f"Errors: {errors}")
     
-    # Print individual results
     print("\nDetailed Results:")
     for result in results:
         print(result)
@@ -129,6 +110,3 @@ if __name__ == "__main__":
         args.processes,
         args.chunk_size
     )
-
-# Example usage:
-# python grep_plasmid_plasmid_ani.py -i input_directory -b all_plasmid_vs_plasmid_skani.csv -o output_directory -p 4 -c 10
