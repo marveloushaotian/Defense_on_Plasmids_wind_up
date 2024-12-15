@@ -75,20 +75,13 @@ for(i in 1:nrow(data)) {
 # 计算每个特征的出现频率
 feature_frequencies <- rowSums(presence_matrix) / ncol(presence_matrix) * 100
 
-# 设置最小频率阈值（这里设为5%）
-min_freq_threshold <- 1
-
 # 打印频率信息
 cat("\n特征出现频率：\n")
 print(sort(feature_frequencies, decreasing = TRUE))
 
-# 过滤低频特征
-frequent_features <- names(feature_frequencies[feature_frequencies >= min_freq_threshold])
-presence_matrix <- presence_matrix[frequent_features, ]
-
-cat("\n过滤后保留的特征数:", length(frequent_features), "\n")
+cat("\n保留的特征数:", length(all_features), "\n")
 print("保留的特征：")
-print(frequent_features)
+print(all_features)
 
 # 计算共现亲和力
 if(nrow(presence_matrix) > 1) {  # 确保至少有2个特征
@@ -147,7 +140,7 @@ if(nrow(presence_matrix) > 1) {  # 确保至少有2个特征
     significant_pairs <- significant_pairs[order(significant_pairs$P_value), ]
     
     # 保存结果
-    write.csv(significant_pairs, "significant_cooccurrences_affinity.csv", 
+    write.csv(significant_pairs, "significant_cooccurrences_affinity_all.csv", 
               row.names = FALSE)
     
     # 打印结果摘要
@@ -167,5 +160,5 @@ if(nrow(presence_matrix) > 1) {  # 确保至少有2个特征
     cat("\n未找到显著的共现对。\n")
   }
 } else {
-  cat("\n过滤后特征数太少，无法进行共现分析。\n")
+  cat("\n特征数太少，无法进行共现分析。\n")
 }
