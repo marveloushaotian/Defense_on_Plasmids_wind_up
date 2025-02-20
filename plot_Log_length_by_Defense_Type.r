@@ -2,7 +2,7 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 
-master_table <- read.csv("Collect/ptu_def_length.csv")
+master_table <- read.csv("Collect/type_def_length.csv")
 
 pcn_data <- master_table %>%
   drop_na(NUCCORE_Length) %>%
@@ -12,21 +12,30 @@ pcn_data <- master_table %>%
     log10NUCCORE_Length = log10(NUCCORE_Length)
   )
 
+# Calculate counts per type
+type_counts <- pcn_data %>%
+  group_by(Type) %>%
+  summarise(count = n()) %>%
+  arrange(desc(count))
+
 mean_log10NUCCORE_Length <- pcn_data %>%
-  group_by(`PTU_sHSBM_10`) %>%
+  group_by(`Type`) %>%
   summarise(median_log10NUCCORE_Length = median(log10NUCCORE_Length, na.rm = TRUE)) %>%
   arrange(desc(median_log10NUCCORE_Length))
 
-sorted_categories <- mean_log10NUCCORE_Length$`PTU_sHSBM_10`
+sorted_categories <- mean_log10NUCCORE_Length$`Type`
 
 pcn_data <- pcn_data %>%
-  mutate(PTU_sHSBM_10 = factor(PTU_sHSBM_10, levels = sorted_categories))
+  mutate(Type = factor(Type, levels = sorted_categories))
 
-write.csv(pcn_data, "Collect/PTU_Group/intermediate_data_for_log_plasmid_length_plot.csv", row.names = FALSE)
+# Create labels with counts
+type_labels <- paste0(sorted_categories, " (n=", type_counts$count[match(sorted_categories, type_counts$Type)], ")")
+
+write.csv(pcn_data, "Collect/Defense_Type_Group/intermediate_data_for_log_plasmid_length_plot.csv", row.names = FALSE)
 
 p <- ggplot() +
   geom_boxplot(data = pcn_data, 
-               aes(x = log10NUCCORE_Length, y = `PTU_sHSBM_10`),
+               aes(x = log10NUCCORE_Length, y = `Type`),
                width = 0.7, 
                fill = "lightblue",
                color = "black", 
@@ -35,7 +44,7 @@ p <- ggplot() +
     name = "log10 Plasmid Length"
   ) +
   labs(
-    y = "PTU Classification",
+    y = "Defense Type",
     title = "Boxplot of log10 Plasmid Length"
   ) +
   theme_bw() +
@@ -46,6 +55,7 @@ p <- ggplot() +
     axis.text.y = element_text(size = 10, face = "bold"),
     plot.title = element_text(hjust = 0.5, size = 14, face = "bold")
   ) +
-  scale_y_discrete(limits = rev(levels(pcn_data$PTU_sHSBM_10)))
+  scale_y_discrete(limits = rev(levels(pcn_data$Type)), 
+                   labels = rev(type_labels))
 
-ggsave("Results/PTU_Group/log_plasmid_length.pdf", p, width = 6, height = 80, units = "in", dpi = 300, limitsize = FALSE)
+ggsave("Results/Defense_Type_Group/log_plasmid_length.pdf", p, width = 6, height = 40, units = "in", dpi = 300, limitsize = FALSE)

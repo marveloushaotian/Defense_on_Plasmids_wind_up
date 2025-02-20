@@ -45,8 +45,8 @@ plot_heatmap <- function(input_file, output_pdf) {
 }
 
 # 输入和输出文件路径
-input_file <- "Results/Co-Occ/significant_cooccurrences_defense_type_vs_amr.csv"  # 输入文件路径
-output_pdf <- "defense_type_amr_heatmap.pdf"  # 输出PDF文件路径
+input_file <- "Collect/Co-Occurrence/significant_cooccurrences_defense_type_vs_amr.csv"  # 输入文件路径
+output_pdf <- "Results/Co-Occurrence/defense_type_amr_heatmap.pdf"  # 输出PDF文件路径
 
 # 调用函数
 plot_heatmap(input_file, output_pdf)

@@ -3,7 +3,7 @@ library(dplyr)
 library(tidyr)
 library(readr)
 
-directory <- "Collect/PTU_Group/ANI_all_host"
+directory <- "Collect/Defense_Type_Group/ANI_all_host"
 
 file_list <- list.files(directory, pattern = "*.csv", full.names = TRUE)
 
@@ -17,7 +17,7 @@ for (file in file_list) {
 
 combined_data <- bind_rows(data_list)
 
-write_csv(combined_data, "Collect/PTU_Group/intermediate_data_for_host_ANI_plot.csv")
+write_csv(combined_data, "Collect/Defense_Type_Group/intermediate_data_for_host_ANI_plot.csv")
 
 p <- ggplot(combined_data, aes(x = ANI, y = file_name)) +
   geom_violin(trim = FALSE, fill = "lightblue", bw = 0.1, scale = "width") +
@@ -26,7 +26,7 @@ p <- ggplot(combined_data, aes(x = ANI, y = file_name)) +
   stat_summary(fun = median, geom = "point", shape = 20, size = 2, color = "#dc5772") +
   labs(
     x = "ANI Distance",
-    y = "PTU Classification",
+    y = "Defense Type",
     title = "Pairwise Distance of Host ANI"
   ) +
   theme_bw() +
@@ -38,4 +38,4 @@ p <- ggplot(combined_data, aes(x = ANI, y = file_name)) +
     plot.title = element_text(hjust = 0.5, size = 14, face = "bold")
   )
 
-ggsave("Results/PTU_Group/pairwise_ANI_of_host.pdf", p, width = 10, height = length(file_list) * 0.3, units = "in", dpi = 300, limitsize = FALSE)
+ggsave("Results/Defense_Type_Group/pairwise_ANI_of_host.pdf", p, width = 10, height = length(file_list) * 0.3, units = "in", dpi = 300, limitsize = FALSE)

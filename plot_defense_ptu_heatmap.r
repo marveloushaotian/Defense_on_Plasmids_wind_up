@@ -4,7 +4,7 @@ library(dplyr)
 library(tidyr)
 
 # Read the data, ensuring proper handling of missing values
-data <- read.csv("Collect/master_extract_defense_ptu.csv", stringsAsFactors = FALSE, na.strings = c("", "NA"))
+data <- read.csv("Collect/PTU_Group/master_extract_defense_ptu.csv", stringsAsFactors = FALSE, na.strings = c("", "NA"))
 
 # Remove rows with any NA values in the relevant columns
 data <- data %>% drop_na(Type, Subtype, PTU)
@@ -27,7 +27,7 @@ plot_type_ptu <- ggplot(count_table_type_ptu, aes(x = Type, y = PTU, size = coun
         plot.title = element_blank())
 
 # Save the first plot
-ggsave("plot_type_ptu.pdf", plot = plot_type_ptu, width = 25, height = 25)
+ggsave("Results/PTU_Group/plot_type_ptu.pdf", plot = plot_type_ptu, width = 25, height = 25)
 
 # Create a count table for the second plot (Subtype vs PTU)
 count_table_subtype_ptu <- data %>%
@@ -47,7 +47,7 @@ plot_subtype_ptu <- ggplot(count_table_subtype_ptu, aes(x = Subtype, y = PTU, si
         plot.title = element_blank())
 
 # Save the second plot
-ggsave("plot_subtype_ptu.pdf", plot = plot_subtype_ptu, width = 25, height = 25)
+ggsave("Results/PTU_Group/plot_subtype_ptu.pdf", plot = plot_subtype_ptu, width = 25, height = 25)
 
 # Print a message indicating the script has completed
-cat("Plots have been generated and saved as 'plot_type_ptu.pdf' and 'plot_subtype_ptu.pdf'.\n")
+cat("Plots have been generated and saved as 'Results/PTU_Group/plot_type_ptu.pdf' and 'Results/PTU_Group/plot_subtype_ptu.pdf'.\n")

@@ -3,7 +3,7 @@ library(dplyr)
 library(tidyr)
 library(readr)
 
-directory <- "Collect/Split_by_Defense_Type/ANI_all_plasmid"
+directory <- "Collect/Defense_Type_Group/ANI_all_plasmid"
 
 file_list <- list.files(directory, pattern = "*.csv", full.names = TRUE)
 
@@ -17,7 +17,7 @@ for (file in file_list) {
 
 combined_data <- bind_rows(data_list)
 
-write_csv(combined_data, "Results/Defense_Type_Group/intermediate_data_for_plasmid_ANI_plot.csv")
+write_csv(combined_data, "Collect/Defense_Type_Group/intermediate_data_for_plasmid_ANI_plot.csv")
 
 p <- ggplot(combined_data, aes(x = ANI, y = file_name)) +
   geom_violin(trim = FALSE, fill = "lightblue", bw = 0.1, scale = "width") +

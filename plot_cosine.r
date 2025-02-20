@@ -2,7 +2,7 @@ library(ggplot2)
 library(dplyr)
 library(purrr)
 
-input_dir <- "Split_by_PTU/Cosine"
+input_dir <- "Collect/PTU_Group/Cosine"
 
 files <- list.files(input_dir, full.names = TRUE)
 print(paste("Found", length(files), "files"))
@@ -52,7 +52,7 @@ for (file in files) {
 
 combined_data <- do.call(rbind, all_data)
 
-write.csv(combined_data, "intermediate_data_for_cosine_plot.csv", row.names = FALSE)
+write.csv(combined_data, "Collect/PTU_Group/intermediate_data_for_cosine_plot.csv", row.names = FALSE)
 
 print("Data range:")
 print(summary(combined_data$Value))

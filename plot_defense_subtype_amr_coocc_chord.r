@@ -74,9 +74,9 @@ process_and_plot <- function(input_file, output_filtered_csv, output_pdf) {
 }
 
 # 设置输入和输出文件路径
-input_file <- "high_alpha_significant_cooccurrences_filtered.csv"  # 输入文件路径
-output_filtered_csv <- "high_alpha_significant_cooccurrences_filtered_for_plot.csv"  # 筛选后的数据保存路径
-output_pdf <- "high_alpha_significant_cooccurrences_filtered_for_plot.pdf"  # 图表 PDF 文件保存路径
+input_file <- "Collect/Co-Occurrence/high_alpha_significant_cooccurrences_filtered.csv"  # 输入文件路径
+output_filtered_csv <- "Collect/Co-Occurrence/high_alpha_significant_cooccurrences_filtered_for_plot.csv"  # 筛选后的数据保存路径
+output_pdf <- "Results/Co-Occurrence/high_alpha_significant_cooccurrences_filtered_for_plot.pdf"  # 图表 PDF 文件保存路径
 
 # 调用函数
 process_and_plot(input_file, output_filtered_csv, output_pdf)

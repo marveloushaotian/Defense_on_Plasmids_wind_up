@@ -39,7 +39,7 @@ for (file in file_list) {
 all_data$File <- factor(all_data$File)
 
 if (nrow(all_data) > 0) {
-  write.csv(all_data, "intermediate_data_for_pairwise_patristic_distance_of_plasmid_host_plot.csv", row.names = FALSE)
+  write.csv(all_data, "Collect/Defense_Type_Group/intermediate_data_for_pairwise_patristic_distance_of_plasmid_host_plot.csv", row.names = FALSE)
 }
 
 if (nrow(all_data) > 0) {

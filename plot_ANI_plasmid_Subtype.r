@@ -3,7 +3,7 @@ library(dplyr)
 library(tidyr)
 library(readr)
 
-directory <- "Collect/PTU_Group/ANI_all_host"
+directory <- "Collect/Defense_Subtype_Group/ANI_all_plasmid"
 
 file_list <- list.files(directory, pattern = "*.csv", full.names = TRUE)
 
@@ -17,7 +17,7 @@ for (file in file_list) {
 
 combined_data <- bind_rows(data_list)
 
-write_csv(combined_data, "Collect/PTU_Group/intermediate_data_for_host_ANI_plot.csv")
+write_csv(combined_data, "Collect/Defense_Subtype_Group/intermediate_data_for_plasmid_ANI_plot.csv")
 
 p <- ggplot(combined_data, aes(x = ANI, y = file_name)) +
   geom_violin(trim = FALSE, fill = "lightblue", bw = 0.1, scale = "width") +
@@ -26,16 +26,16 @@ p <- ggplot(combined_data, aes(x = ANI, y = file_name)) +
   stat_summary(fun = median, geom = "point", shape = 20, size = 2, color = "#dc5772") +
   labs(
     x = "ANI Distance",
-    y = "PTU Classification",
-    title = "Pairwise Distance of Host ANI"
+    y = "Defense Subtype",
+    title = "Pairwise Distance of Plasmid ANI"
   ) +
   theme_bw() +
   theme(
     axis.title.x = element_text(size = 12, face = "bold"),
-    axis.title.y = element_text(size = 12, face = "bold"),
     axis.text.x = element_text(size = 10, face = "bold"),
-    axis.text.y = element_text(size = 10, face = "bold"),
+    axis.text.y = element_text(size = 10 , face = "bold"),
+    axis.title.y = element_text(size = 12, face = "bold"),
     plot.title = element_text(hjust = 0.5, size = 14, face = "bold")
   )
 
-ggsave("Results/PTU_Group/pairwise_ANI_of_host.pdf", p, width = 10, height = length(file_list) * 0.3, units = "in", dpi = 300, limitsize = FALSE)
+ggsave("Results/Defense_Subtype_Group/pairwise_ANI_of_plasmid.pdf", p, width = 10, height = length(file_list) * 0.3, units = "in", dpi = 300, limitsize = FALSE)

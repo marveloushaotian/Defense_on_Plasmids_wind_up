@@ -80,5 +80,5 @@ p <- ggplot() +
 
 ggsave("Results/PTU_Group/log_PCN_and_percentage_of_plasmid_with_defense_systems.pdf", p, width = 6, height = 40, units = "in", dpi = 300, limitsize = FALSE)
 
-write.csv(pcn_data, "intermediate_data_for_PCN_plot.csv", row.names = FALSE)
-write.csv(percent_def_sys, "intermediate_data_for_percentage_of_plasmid_with_defense_systems_plot.csv", row.names = FALSE)
+write.csv(pcn_data, "Collect/PTU_Group/intermediate_data_for_PCN_plot.csv", row.names = FALSE)
+write.csv(percent_def_sys, "Collect/PTU_Group/intermediate_data_for_percentage_of_plasmid_with_defense_systems_plot.csv", row.names = FALSE)
