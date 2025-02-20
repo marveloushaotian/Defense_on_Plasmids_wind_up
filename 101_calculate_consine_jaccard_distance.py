@@ -33,6 +33,7 @@ def jaccard_distance(list1, list2):
     return 1 - len(intersection) / len(union)
 
 input_file = 'master_table_pcn_with_ptu.csv'
+# input_file = 'Collect/master_table_pcn_with_defense_mutiple_line.csv'
 master_table = pd.read_csv(input_file)
 
 master_table["Unified_subtype_name"] = master_table["Unified_subtype_name"].fillna("").astype(str)

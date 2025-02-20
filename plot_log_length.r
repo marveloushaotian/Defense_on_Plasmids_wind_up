@@ -2,7 +2,7 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 
-master_table <- read.csv("ptu_def_length.csv")
+master_table <- read.csv("Collect/ptu_def_length.csv")
 
 pcn_data <- master_table %>%
   drop_na(NUCCORE_Length) %>%
