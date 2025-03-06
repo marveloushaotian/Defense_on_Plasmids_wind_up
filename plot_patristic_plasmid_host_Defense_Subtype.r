@@ -1,7 +1,7 @@
 library(ggplot2)
 library(dplyr)
 
-file_list <- list.files(path = "Plasmid_Host_Breath/Patristic_distance_0", pattern = "*.csv", full.names = TRUE)
+file_list <- list.files(path = "Collect/Plasmid_Host_Breath/Subtype_Patristic_distance_0", pattern = "*.csv", full.names = TRUE)
 
 all_data <- data.frame()
 
