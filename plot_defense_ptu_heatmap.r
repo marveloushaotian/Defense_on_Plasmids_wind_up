@@ -4,7 +4,7 @@ library(dplyr)
 library(tidyr)
 
 # Read the data, ensuring proper handling of missing values
-data <- read.csv("Collect/PTU_Group/master_extract_defense_ptu.csv", stringsAsFactors = FALSE, na.strings = c("", "NA"))
+data <- read.csv("Collect/master_extract_defense_ptu.csv", stringsAsFactors = FALSE, na.strings = c("", "NA"))
 
 # Remove rows with any NA values in the relevant columns
 data <- data %>% drop_na(Type, Subtype, PTU)
