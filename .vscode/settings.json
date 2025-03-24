@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "*.Rmd": "rmd"
+    },
+    "workbench.editorAssociations": {
+        "*.pdf": "pdf.preview"
+    },
+    "workbench.activityBar.location": "top",
+    "editor.rename.enablePreview": true,
+    "workbench.editor.enablePreview": false,
+    "notebook.confirmDeleteRunningCell": false,
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "terminal.integrated.copyOnSelection": true,
+    "terminal.integrated.cursorStyle": "line"
+}
