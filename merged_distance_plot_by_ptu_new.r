@@ -3,7 +3,7 @@ library(gridExtra)
 library(dplyr)
 library(tidyr)
 
-data <- read.csv("Collect/all_imtermediate_files.csv")
+data <- read.csv("Collect/all_imtermediate_files_by_ptu.csv")
 
 complete_y <- unique(data$PTU_Group)
 
